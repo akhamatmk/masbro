@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use Session;
 
 class LoginController extends Controller
 {
@@ -63,15 +64,14 @@ class LoginController extends Controller
       if (Auth::attempt($userdata))
          {
 
-            dd(1);
+            return redirect('home');
 
          }
         else
          {
 
-         // validation not successful, send back to form
-
-            return Redirect::to('checklogin');
+            Session::flash('message', 'Wrong email or password'); 
+            return redirect('login');
          }
    }
 }

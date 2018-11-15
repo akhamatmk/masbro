@@ -28,6 +28,14 @@
                              </ul>
                          </div>
                      @endif
+
+                     @if(Session::has('message'))
+                        <div class="alert alert-danger">
+                             <ul>                                
+                                 <li>{{ Session::get('message') }}</li>
+                             </ul>
+                         </div>
+                     @endif
                      <div class="form-group">
                         <label class="font-weight-700">E-MAIL *</label>
                         <input name="email" required="" class="form-control" placeholder="Your Email Id" type="email">

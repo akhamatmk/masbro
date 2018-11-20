@@ -27,3 +27,13 @@ Route::get('register', 'Auth\RegisterController@index')->name('register');
 Route::post('register', 'Auth\RegisterController@check_register')->name('post-register');
 
 Route::get('logout', 'Auth\LogoutController@index')->name('logout');
+
+Route::get('profile/user', 'Auth\UserController@profile')->name('profile')->middleware('auth');
+Route::get('profile/user/edit', 'Auth\UserController@profile_edit')->name('edit-profile')->middleware('auth');
+Route::post('profile/user/edit', 'Auth\UserController@save_edit')->name('save-edit-profile')->middleware('auth');
+
+Route::get('place/regencyAjax/{province_id}', 'PlaceController@regencyAjax')->name('place-regency-ajax');
+Route::get('place/districtAjax/{regency_id}', 'PlaceController@districtAjax')->name('place-district-ajax');
+
+Route::get('education/create', 'Auth\EducationController@create')->name('education-create')->middleware('auth');
+Route::post('education/create', 'Auth\EducationController@store')->name('education-save')->middleware('auth');

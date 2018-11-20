@@ -39,12 +39,31 @@
                         <!-- main nav -->                    
                         <ul class="nav navbar-nav">
                            @if (Auth::check())
-                    
-                            <li class="active">
+                            
+                            <li>
+                                <a href="#">For Candidates <i class="fa fa-chevron-down"></i></a>
+                                <ul class="sub-menu">
+                                    <li><a href="browse-job.html" class="dez-page">Browse Job</a></li>
+                                    <!-- <li><a href="companies.html" class="dez-page">companies</a></li> -->
+                                    <!-- <li><a href="job-detail.html" class="dez-page">Job Detail</a></li> -->
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">For Employers <i class="fa fa-chevron-down"></i></a>
+                                <ul class="sub-menu">
+                                    <li><a href="browse-candidates.html" class="dez-page">Browse Candidates</a></li>
+                                    <li><a href="submit-resume.html" class="dez-page">Submit Resume</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="{{ url('profile/user') }}">Profile <i class="fa"></i></a>
+                            </li>
+
+                            <!-- <li class="active">
                                 <a href="#">Home <i class="fa fa-chevron-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="index-2.html" class="dez-page">Home 1</a></li>
-                                    <li><a href="index-3.html" class="dez-page">Home 2</a></li>
+                                    <li><a class="dez-page">Home 1</a></li>
+                                    <li><a class="dez-page">Home 2</a></li>
                                 </ul>
                             </li>
                             <li>
@@ -91,7 +110,7 @@
                                         .html" class="dez-page">Left Image Sidebar</a></li>
                                     <li><a href="blog-details.html" class="dez-page">Blog Details</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                             @else
                               <li><a href="{{ route('register') }}">Sign Up <i class="fa"></i></a></li>
                               <li><a href="{{ route('login') }}">Login <i class="fa"></i></a></li>

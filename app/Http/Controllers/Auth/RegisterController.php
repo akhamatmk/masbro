@@ -80,13 +80,14 @@ class RegisterController extends Controller
     {      
         $validatedData = $request->validate([
          'email' => 'required|unique:users|max:255',
+         'user_id' => 'required|unique:users|max:255',
          'first_name' => 'required',
          'last_name' => 'required',
          'name' => 'required',
          'password' => 'required',
         ]);
       
-          $user = User::create(request(['email', 'name', 'password']));        
+          $user = User::create(request(['email', 'name', 'password', 'first_name', 'last_name', 'user_id']));        
           auth()->login($user);        
           return redirect()->to('/');
    }

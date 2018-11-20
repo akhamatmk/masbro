@@ -7,9 +7,7 @@
     <meta name="keywords" content="" />
     <meta name="author" content="" />
     <meta name="robots" content="" />
-        <meta name="description" content="JobBoard - HTML Template" />
-    <meta property="og:title" content="JobBoard - HTML Template" />
-    <meta property="og:description" content="JobBoard - HTML Template" />
+    <meta name="description" content="Masbro : Cari kerja semudah yang anda bayangkan" />
     <meta property="og:image" content="{{ asset('social-image.png')}} " />
     <meta name="format-detection" content="telephone=no">
     
@@ -18,7 +16,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon.png') }}" />
     
     <!-- PAGE TITLE HERE -->
-    <title>JobBoard - HTML Template</title>
+    <title>Masbro : Cari kerja semudah yang anda bayangkan</title>
     
     <!-- MOBILE SPECIFIC -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -143,9 +141,9 @@
 <script src="{{ asset('recaptcha/api.js')}} "></script> <!-- Google API For Recaptcha  -->
 <script src="{{ asset('js/dz.ajax.js')}} "></script><!-- CONTACT JS  -->
 <script src="{{ asset('plugins/paroller/skrollr.min.js')}} "></script><!-- PAROLLER -->
-<!-- Go to www.addthis.com/dashboard to customize your tools --> 
+
+@yield('js')
 
 </body>
 
-<!-- Mirrored from job-board.dexignzone.com/xhtml/ by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Nov 2018 07:49:40 GMT -->
 </html>

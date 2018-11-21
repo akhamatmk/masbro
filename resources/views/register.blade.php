@@ -37,6 +37,12 @@
 										<label class="font-weight-700">Last Name *</label>
 										<input name="last_name" required="" class="form-control" placeholder="Last Name" type="text">
 									</div>
+
+									<div class="form-group">
+										<label class="font-weight-700">UserId *</label>
+										<input name="user_id" required="" class="form-control" placeholder="UserID" type="text">
+									</div>
+
 									<div class="form-group">
 										<label class="font-weight-700">Full Name *</label>
 										<input name="name" required="" class="form-control" placeholder="Full Name" type="text">

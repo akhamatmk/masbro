@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/revolution/revolution/css/layers.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/revolution/revolution/css/settings.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('plugins/revolution/revolution/css/navigation.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/datetimepicker.css')}}">
     <!-- Revolution Navigation Style -->
 </head>
 <body id="bg">
@@ -141,6 +142,12 @@
 <script src="{{ asset('recaptcha/api.js')}} "></script> <!-- Google API For Recaptcha  -->
 <script src="{{ asset('js/dz.ajax.js')}} "></script><!-- CONTACT JS  -->
 <script src="{{ asset('plugins/paroller/skrollr.min.js')}} "></script><!-- PAROLLER -->
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.0/moment-with-locales.min.js"></script> -->
+<!-- <script src="{{ asset('js/datetimepicker.js')}}"></script> -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="http://code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
+
 
 @yield('js')
 

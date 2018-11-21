@@ -43,7 +43,7 @@
                             <li>
                                 <a href="#">For Candidates <i class="fa fa-chevron-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="browse-job.html" class="dez-page">Browse Job</a></li>
+                                    <li><a href="{{ url('job/all') }}" class="dez-page">Lihat Lowongan</a></li>
                                     <!-- <li><a href="companies.html" class="dez-page">companies</a></li> -->
                                     <!-- <li><a href="job-detail.html" class="dez-page">Job Detail</a></li> -->
                                 </ul>
@@ -51,8 +51,7 @@
                             <li>
                                 <a href="#">For Employers <i class="fa fa-chevron-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li><a href="browse-candidates.html" class="dez-page">Browse Candidates</a></li>
-                                    <li><a href="submit-resume.html" class="dez-page">Submit Resume</a></li>
+                                    <li><a href="{{ url('job/create') }}" class="dez-page">Posting Lowongan</a></li>
                                 </ul>
                             </li>
                             <li>

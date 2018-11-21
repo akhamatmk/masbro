@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="col-md-2">
-                        <a href="{{ url('profile/user/edit') }}" class="profile-edit-btn">Edit Profile</a>
+                        <a href="{{ url('profile/user/edit') }}" class="btn btn-primary profile-edit-btn" style="color: white">Edit Profile</a>
                     </div>
                 </div>
                 <div class="row">

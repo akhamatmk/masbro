@@ -11,14 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('home', function () {
-    return view('welcome');
-})->name('home');
-
+Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('login', 'Auth\LoginController@index')->name('login');
 Route::post('login', 'Auth\LoginController@check_login')->name('post-login');
@@ -37,3 +32,9 @@ Route::get('place/districtAjax/{regency_id}', 'PlaceController@districtAjax')->n
 
 Route::get('education/create', 'Auth\EducationController@create')->name('education-create')->middleware('auth');
 Route::post('education/create', 'Auth\EducationController@store')->name('education-save')->middleware('auth');
+
+Route::get('job/create', 'Auth\JobController@create')->name('job-create')->middleware('auth');
+Route::post('job/create', 'Auth\JobController@store')->name('job-store')->middleware('auth');
+
+Route::get('job/all', 'Auth\JobController@list_job_all')->name('list-job-all');
+Route::get('job/detail/{id}', 'Auth\JobController@detail_job')->name('detail-job');

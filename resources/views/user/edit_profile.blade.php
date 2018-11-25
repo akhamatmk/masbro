@@ -50,11 +50,11 @@
 									<textarea name="bio" class="form-control" placeholder="Biodata">{{ $user->bio }}</textarea>
 								</div>
 
-								<div class="form-group">
+								<div class="form-group col-md-6">
 									<label>profile image</label>									
-									<img src="{{ asset('images/profile-picture-user/'.$user->profile_image) }}" width="100px" height="100px" />
+									<!-- <img src="{{ asset('images/profile-picture-user/'.$user->profile_image) }}" width="100px" height="100px" /> -->
 									<div class="custom-file">
-										<input type="file" name="profile_image" class="site-button" id="customFile">
+										<input type="file" name="profile_image" class="dropify" id="customFile" data-default-file="{{ asset('images/profile-picture-user/'.$user->profile_image) }}">
 									</div>
 								</div>
 
@@ -248,6 +248,8 @@
 
 <script type="text/javascript">
 	$(function() {
+		$('.dropify').dropify();
+
     	$("#province_id").change(function(){
 			$.ajax({
 				type: "GET",

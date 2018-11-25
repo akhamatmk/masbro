@@ -1,19 +1,18 @@
 @extends('layout.app')
 @section('title', 'Login Page Masbro')
 @section('content')
+<style type="text/css">
+    .dropify-wrapper {
+        border : 0px;
+    }
+</style>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/profile.css')}}">
 <!-- contact area -->
 <div class="container emp-profile">
             <form method="post">
                 <div class="row">
                     <div class="col-md-4">
-                        <div class="profile-img">
-                            <img src="{{ asset('images/profile-picture-user/'.$user->profile_image) }}" alt=""/>
-                            <div class="file btn btn-lg btn-primary">
-                                Change Photo
-                                <input type="file" name="file"/>
-                            </div>
-                        </div>
+                        <input type="file" name="profile_image" class="dropify" id="customFile" data-default-file="{{ asset('images/profile-picture-user/'.$user->profile_image) }}">
                     </div>
                     <div class="col-md-6">
                         <div class="profile-head">
@@ -132,4 +131,12 @@
                 </div>
             </form>           
         </div>
+@endsection
+
+@section('js')
+<script type="text/javascript">
+    $(function() {
+        $('.dropify').dropify();
+    });
+</script>
 @endsection

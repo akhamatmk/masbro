@@ -53,6 +53,8 @@ class JobController extends Controller
 		$jobPosting->provincy_id = $request->province_id;
 		$jobPosting->regency_id = $request->regency_id;
 		$jobPosting->detail_address = $request->addreess;
+		$jobPosting->longitude = $request->long;
+		$jobPosting->latitude = $request->lat;
 		$jobPosting->save();
 	
 		Session::flash('message-succes', 'Succes Save Data'); 

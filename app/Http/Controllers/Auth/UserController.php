@@ -60,6 +60,8 @@ class UserController extends Controller
 		$user->regency_id = $request->regency_id;
 		$user->district_id = $request->district_id;
 		$user->addreess = $request->addreess;
+		$user->longitude = $request->long;
+		$user->latitude = $request->lat;
 		$user->save();
 
 		if ($request->hasFile('profile_image'))

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\JobPosting;
+use App\Models\CategoryJobs;
 use Session;
 
 class HomeController extends Controller
@@ -24,8 +25,11 @@ class HomeController extends Controller
 		$types = ["Silahkan Pilih", "Freelance", "Full Time", "Internship", "Part Time", "Temporary", "Internship", "Part Time", "Temporary", "Freelance", "Full Time"];
 
 		$jobs = JobPosting::get();
+		$category = CategoryJobs::get();
+
 		return view('welcome')
 		->with('jobs', $jobs)
+		->with('categorys', $category)
 		->with('type', $types);
 	}
 }

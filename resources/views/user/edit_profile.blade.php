@@ -1,15 +1,21 @@
 @extends('layout.app')
 @section('title', 'Login Page Masbro')
 @section('content')
+	<style type="text/css">
+		.section-full:last-child{
+			margin-bottom: 0;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="{{ asset('css/googlemap.css')}}">
 	<!-- contact area -->
         <div class="content-block">
 			<!-- Submit Resume -->
-			<div class="section-full bg-white submit-resume content-inner-2" style="padding-top: 35px; padding-bottom: 20px;">
+			<div class="section-full submit-resume content-inner-2" style="padding-top: 35px; padding-bottom: 20px;">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-7 col-lg-9" style="box-shadow: 0 0 10px 0 rgba(0,24,128,0.1);">
+						<div class="col-md-7 col-lg-9" style="box-shadow: 0 0 10px 0 rgba(0,24,128,0.1); background: #ffff">
 							 @if(Session::has('message-succes'))
-		                        <div class="alert alert-success">
+		                        <div class="alert alert-success" style="margin :10px">
 		                             <ul>                                
 		                                 <li>{{ Session::get('message-succes') }}</li>
 		                             </ul>
@@ -105,6 +111,14 @@
 									<textarea name="addreess" id="addreess" class="form-control" placeholder="Alamat">{{ $user->addreess }}</textarea>
 								</div>
 
+								<div class="form-group">
+									<label>Maps</label><br/><br/>
+									<input id="pac-input" class="controls" type="text" placeholder="Search Box" style="left : 0; width: 70%; margin-top: 7px;">
+                      				<div id="mapGoogle" style="osition: relative; overflow: hidden; height: 300px; margin-top: -30px; z-index: 0;"></div>
+                      				<input type="hidden" name="long" id="long" value="{{ $user->longitude }}">
+                      				<input type="hidden" name="lat" id="lat" value="{{ $user->latitude }}">
+								</div>
+
 								<button type="submit" class="site-button" style="margin-bottom: 10px;">Submit</button>
 							</form>
 						</div>
@@ -140,6 +154,98 @@
 @endsection
 
 @section('js')
+
+<script type="text/javascript">
+        var marker;
+        var map;
+        var longitude = "{{ $user->longitude ? $user->longitude : 106.7883531}}";
+        var latitude = "{{ $user->latitude ? $user->latitude :  -6.2440165}} ";
+        
+        longitude = parseFloat(longitude);
+        latitude = parseFloat(latitude);
+        function initMap() {
+          map = new google.maps.Map(document.getElementById('mapGoogle'), {
+            zoom: 17,
+            center: {lat: latitude, lng: longitude}
+          });
+
+          marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            position: {lat: latitude, lng: longitude}
+          });
+
+          marker.addListener('click', toggleBounce);
+  
+            // Create the search box and link it to the UI element.
+          var input = document.getElementById('pac-input');
+          var searchBox = new google.maps.places.SearchBox(input);
+          map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+            
+        // Bias the SearchBox results towards current map's viewport.
+          map.addListener('bounds_changed', function() {
+            searchBox.setBounds(map.getBounds());
+          });
+
+
+          searchBox.addListener('places_changed', function() {
+            var places = searchBox.getPlaces();
+
+            if (places.length == 0)
+              return;
+
+            var bounds = new google.maps.LatLngBounds();
+            places.forEach(function(place) {
+              
+              if (!place.geometry)
+                return;
+
+              if (place.geometry.viewport)
+                bounds.union(place.geometry.viewport);
+              else
+                bounds.extend(place.geometry.location);
+
+            });
+
+              map.fitBounds(bounds);
+              placeMarker(map.center);
+
+          });
+
+            google.maps.event.addListener(map, 'click', function(event) {
+              placeMarker(event.latLng);
+              setLongLat();
+          });
+
+          function placeMarker(location) {
+              marker.setPosition(location);
+              //map.setCenter(location);
+              map.setZoom(17);
+              setLongLat();
+          }
+
+          setLongLat();
+        }
+
+        function setLongLat()
+        {
+            document.getElementById('long').value= map.getCenter().lng();
+            document.getElementById('lat').value= map.getCenter().lat();
+        }
+  
+        function toggleBounce() {
+          if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+          } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+          }
+        }    
+</script>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDR7DFQIBGumoziD6B6a0n2EZgrKhQOWS4&callback=initMap&libraries=places"></script>
+
+
 <script type="text/javascript">
 	$(function() {
     	$("#province_id").change(function(){

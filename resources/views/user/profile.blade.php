@@ -5,17 +5,28 @@
     .dropify-wrapper {
         border : 0px;
     }
+
+    .dropify-clear{
+        display: none;
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="{{ asset('css/profile.css')}}">
 <!-- contact area -->
 <div class="container emp-profile">
             <form method="post">
+                <div class="row" style="float: right; margin-top: 30px">
+                    <a style="    width: 150px;
+    color: white;
+    height: 30px; margin-right: 20px; margin-bottom: 10px" href="{{ url('profile/user/edit') }}" class="btn btn-primary profile-edit-btn float-right" style="">Edit Profile</a>
+                </div>
+                <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-4">
-                        <input type="file" name="profile_image" class="dropify" id="customFile" data-default-file="{{ asset('images/profile-picture-user/'.$user->profile_image) }}">
+                        <img src="{{ asset('images/profile-picture-user/'.$user->profile_image) }}">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="profile-head">
+                                    
                                     <h5>
                                         {{ ucwords($user->name) }}
                                     </h5>
@@ -37,30 +48,8 @@
 
                             </ul>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-                        <a href="{{ url('profile/user/edit') }}" class="btn btn-primary profile-edit-btn" style="color: white">Edit Profile</a>
-                    </div>
-                </div>
-                <div class="row">
-                    
-                    <div class="col-md-4">
-                        <div class="profile-work">
-                           <!--  <p>WORK LINK</p>
-                            <a href="">Website Link</a><br/>
-                            <a href="">Bootsnipp Profile</a><br/>
-                            <a href="">Bootply Profile</a>
-                            <p>SKILLS</p>
-                            <a href="">Web Designer</a><br/>
-                            <a href="">Web Developer</a><br/>
-                            <a href="">WordPress</a><br/>
-                            <a href="">WooCommerce</a><br/>
-                            <a href="">PHP, .Net</a><br/> -->
-                        </div>
-                    </div>
 
-                    <div class="col-md-8">
-                        <div class="tab-content profile-tab" id="myTabContent">
+                         <div class="tab-content profile-tab" id="myTabContent">
                             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -127,6 +116,28 @@
                                 </div>
                             </div>
                         </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    
+                    <div class="col-md-4">
+                        <div class="profile-work">
+                           <!--  <p>WORK LINK</p>
+                            <a href="">Website Link</a><br/>
+                            <a href="">Bootsnipp Profile</a><br/>
+                            <a href="">Bootply Profile</a>
+                            <p>SKILLS</p>
+                            <a href="">Web Designer</a><br/>
+                            <a href="">Web Developer</a><br/>
+                            <a href="">WordPress</a><br/>
+                            <a href="">WooCommerce</a><br/>
+                            <a href="">PHP, .Net</a><br/> -->
+                        </div>
+                    </div>
+
+                    <div class="col-md-8">
+                       
                     </div>
                 </div>
             </form>           

@@ -12853,7 +12853,7 @@ ol.commentlist li .star-rating {
     text-transform: uppercase;
 }
 .shop-account .border-1 {
-    border-color: #dfdfdf;
+    /*border-color: #dfdfdf;*/
 }
 .shop-account .form-control:focus{
 	 box-shadow: 2px 2px 14px 0 rgba(0, 0, 0, 0.05);

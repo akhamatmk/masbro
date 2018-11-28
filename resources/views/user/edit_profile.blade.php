@@ -169,6 +169,10 @@
             center: {lat: latitude, lng: longitude}
           });
 
+          	var restrictOptions = {
+    			componentRestrictions: {country: 'ID'}
+			};
+
           marker = new google.maps.Marker({
             map: map,
             draggable: true,
@@ -180,7 +184,7 @@
   
             // Create the search box and link it to the UI element.
           var input = document.getElementById('pac-input');
-          var searchBox = new google.maps.places.SearchBox(input);
+          var searchBox = new google.maps.places.Autocomplete(input, restrictOptions);
           map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
             
         // Bias the SearchBox results towards current map's viewport.

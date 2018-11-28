@@ -11,6 +11,7 @@ use App\Models\District;
 use App\Models\EducationUser;
 use Illuminate\Support\Facades\File;
 use Session;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -74,5 +75,18 @@ class UserController extends Controller
 
         Session::flash('message-succes', 'Succes Save Data'); 
         return redirect('profile/user/edit');
+	}
+
+	public function set_new_password()
+	{
+		return view('user/set_new_password');		
+	}
+
+	public function save_new_password(Request $request)
+	{
+		$user = Auth::user();
+		$user->password = $request->password;
+		$user->save();
+		return redirect('home');
 	}
 }

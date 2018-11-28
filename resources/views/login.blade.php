@@ -2,17 +2,51 @@
 @section('title', 'Login Page Masbro')
 @section('content')
 <!-- contact area -->
-<div class="section-full content-inner-2 shop-account">
+
+<style type="text/css">
+    #customBtn {
+      display: inline-block;
+      background: white;
+      color: #444;
+      width: 100%;
+      border-radius: 5px;
+      border: thin solid #888;
+      box-shadow: 1px 1px 1px grey;
+      white-space: nowrap;
+    }
+    #customBtn:hover {
+      cursor: pointer;
+      background: #ced1ce;
+    }
+    span.label {
+      font-family: serif;
+      font-weight: normal;
+    }
+    span.icon {
+      background: url('/images/g-normal.png') transparent 5px 50% no-repeat;
+      display: inline-block;
+      vertical-align: middle;
+      width: 42px;
+      height: 42px;
+    }
+    span.buttonText {
+      display: inline-block;
+      vertical-align: middle;
+      padding-left: 5px;
+      padding-right: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      /* Use the Roboto font that is loaded in the <head> */
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+
+<div class="section-full content-inner-2 shop-account"  style="padding-top: 30px">
    <!-- Product -->
    <div class="container">
-      <div class="row">
-         <div class="col-md-12 text-center">
-            <h3 class="font-weight-700 m-t0 m-b20">Login Your Account</h3>
-         </div>
-      </div>
       <div>
-         <div class="max-w500 m-auto m-b30">
-            <div class="p-a30 border-1 seth">
+         <div class="max-w500 m-auto m-b30" style="background: #fff; box-shadow: 0 0 10px 0 rgba(0,24,128,0.1); border: none;">
+            <div class="p-a30 seth">
                <div class="tab-content nav">
                   <form id="login" method="post" class="tab-pane active col-12 p-a0 ">
                      @csrf
@@ -48,6 +82,16 @@
                         <button class="site-button m-r5 button-lg">login</button>
                         <a data-toggle="tab" href="#forgot-password" class="m-l5"><i class="fa fa-unlock-alt"></i> Forgot Password</a> 
                      </div>
+
+                      <div style="margin-top: 35px">
+                        <div id="gSignInWrapper">
+                          <div id="customBtn" class="customGPlusSignIn">
+                            <span class="icon"></span>
+                            <a href="{{ url('auth/google') }}"><span class="buttonText">Login with Google</span></a>
+                          </div>
+                        </div>
+                      </div>
+
                   </form>
                   <form id="forgot-password" class="tab-pane fade  col-12 p-a0">
                      <h4 class="font-weight-700">FORGET PASSWORD ?</h4>

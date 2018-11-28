@@ -27,6 +27,9 @@ Route::get('profile/user', 'Auth\UserController@profile')->name('profile')->midd
 Route::get('profile/user/edit', 'Auth\UserController@profile_edit')->name('edit-profile')->middleware('auth');
 Route::post('profile/user/edit', 'Auth\UserController@save_edit')->name('save-edit-profile')->middleware('auth');
 
+Route::get('user/new/password', 'Auth\UserController@set_new_password')->name('set-user-password')->middleware('auth');
+Route::post('user/new/password', 'Auth\UserController@save_new_password')->middleware('auth');
+
 Route::get('place/regencyAjax/{province_id}', 'PlaceController@regencyAjax')->name('place-regency-ajax');
 Route::get('place/districtAjax/{regency_id}', 'PlaceController@districtAjax')->name('place-district-ajax');
 
@@ -38,3 +41,6 @@ Route::post('job/create', 'Auth\JobController@store')->name('job-store')->middle
 
 Route::get('job/all', 'Auth\JobController@list_job_all')->name('list-job-all');
 Route::get('job/detail/{id}', 'Auth\JobController@detail_job')->name('detail-job');
+
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

@@ -98,7 +98,7 @@ class LoginController extends Controller
             $authFor = $request->session()->get('state_form');
             $request->merge(["key"=>"value"]);
 
-            dd($_GET);
+            dd(url()->full());
 
 
             $dataProvider = Socialite::driver($provider)->stateless()->user();

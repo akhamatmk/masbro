@@ -80,7 +80,6 @@ class LoginController extends Controller
             else
                $request->session()->put('state_form', 'login');
                 
-
             return Socialite::driver($provider)->redirect();    
         } catch (Exception $e) {
             dd($e);
@@ -92,6 +91,7 @@ class LoginController extends Controller
     {        
         try {
             $authFor = $request->session()->get('state_form');
+            dd($request->input('code'));
             $dataProvider = Socialite::driver($provider)->stateless()->user();
 
             $request->session()->forget('state_form');
@@ -146,8 +146,6 @@ class LoginController extends Controller
             }            
         } catch (Exception $e) {
             dd($e);
-        }
-
-        
+        } 
     }
 }

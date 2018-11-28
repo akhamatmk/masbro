@@ -73,6 +73,11 @@ class LoginController extends Controller
 
    public function redirectToProvider($provider, Request $request)
     {
+         // $url = url('/');
+         // $urlFull = url()->full();
+         // //$temp = str_replace($url, replace, subject)
+         // dd(Request::url());
+
         try {
             $forAuth = $request->input('authFor') ? $request->input('authFor') : null;
             if(isset($forAuth))        
@@ -91,7 +96,11 @@ class LoginController extends Controller
     {        
         try {
             $authFor = $request->session()->get('state_form');
-            dd($request->input('code'));
+            $request->merge(["key"=>"value"]);
+
+            dd($_GET);
+
+
             $dataProvider = Socialite::driver($provider)->stateless()->user();
 
             $request->session()->forget('state_form');

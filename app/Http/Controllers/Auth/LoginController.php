@@ -96,11 +96,9 @@ class LoginController extends Controller
     {        
         try {
             $authFor = $request->session()->get('state_form');
-            //$request->merge(["key"=>"value"]);
-
             $resultQuery = $this->generateQuery($_SERVER['REQUEST_URI']);
-            dd($resultQuery);
-
+            if(isset($resultQuery["code"]))
+               $request->merge(["code" => $resultQuery["code"]]);
 
             $dataProvider = Socialite::driver($provider)->stateless()->user();
 

@@ -96,9 +96,9 @@ class LoginController extends Controller
     {        
         try {
             $authFor = $request->session()->get('state_form');
-            $request->merge(["key"=>"value"]);
+            //$request->merge(["key"=>"value"]);
 
-            $x = pathinfo($url);
+            //$x = pathinfo($url);
 
             dd($_SERVER['REQUEST_URI']);
 

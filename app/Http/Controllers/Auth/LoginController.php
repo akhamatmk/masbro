@@ -98,9 +98,8 @@ class LoginController extends Controller
             $authFor = $request->session()->get('state_form');
             //$request->merge(["key"=>"value"]);
 
-            //$x = pathinfo($url);
-
-            dd($_SERVER['REQUEST_URI']);
+            $resultQuery = $this->generateQuery($_SERVER['REQUEST_URI']);
+            dd($resultQuery);
 
 
             $dataProvider = Socialite::driver($provider)->stateless()->user();
@@ -158,5 +157,26 @@ class LoginController extends Controller
         } catch (Exception $e) {
             dd($e);
         } 
+    }
+
+    public function generateQuery($url)
+    {
+         $temp = explode("?", $url);
+         if(! isset($temp[1]))
+            return [];
+
+
+         $temp2 = explode("&", $temp[1]);
+         $result = [];
+         foreach ($temp2 as $key => $value) {
+            $temp3 = explode("=", $value);
+
+            if(isset($temp3[0]) AND $temp3[1])
+            {
+               $result[$temp3[0]] = $temp3[1];
+            }
+         }
+
+         return $result;
     }
 }

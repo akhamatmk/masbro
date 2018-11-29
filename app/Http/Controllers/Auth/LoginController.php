@@ -100,7 +100,7 @@ class LoginController extends Controller
 
             //$x = pathinfo($url);
 
-            dd($_SERVER['QUERY_STRING']);
+            dd($_SERVER['REQUEST_URI']);
 
 
             $dataProvider = Socialite::driver($provider)->stateless()->user();

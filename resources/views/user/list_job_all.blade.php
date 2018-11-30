@@ -56,7 +56,12 @@
 
 							</div>
 
+							<div class="row" id="loading" style="justify-content: center; display: none !important; height: 200px">
+								<img src="https://s3.ap-south-1.amazonaws.com/dzon-html/job-board/xhtml/images/loading.svg">
+							</div>
+
 							<ul class="post-job-bx">
+
 								@if(count($jobs) > 0)
 									@foreach($jobs as $job)
 									<li>
@@ -100,7 +105,7 @@
 								</div> -->
 							@else
 							<li>
-								<div class="d-flex m-b30" style="justify-content: center;">
+								<div class="d-flex m-b30" style="justify-content: center; height: 200px">
 									<h2>Data tidak ada</h2>
 								</div>
 							</li>
@@ -139,6 +144,8 @@
 		});
 
 		$("#search").click(function(){
+			$(".post-job-bx").html("");
+			$("#loading").show();
 			$.ajax({
 				type: "GET",
 				url: '{{ URL::to("job/list/ajax") }}',
@@ -148,6 +155,7 @@
 				},
 				dataType: 'json',
 				success: function(data){
+					$("#loading").hide();
 					$(".post-job-bx").html(data.job_content);
 				}
 			});

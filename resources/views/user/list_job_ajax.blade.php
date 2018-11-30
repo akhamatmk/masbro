@@ -31,7 +31,7 @@
 	@endForeach
 @else
 <li>
-	<div class="d-flex m-b30" style="justify-content: center;">
+	<div class="d-flex m-b30" style="justify-content: center; height: 200px">
 		<h2>Data tidak ada</h2>
 	</div>
 </li>

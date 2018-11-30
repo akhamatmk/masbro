@@ -4152,7 +4152,7 @@ blockquote:before {
     height: 450px;
 }
 .dez-bnr-inr {
-    height: 300px;
+    height: 100px;
     background-size: cover;
     background-position: center center;
     display: table;
@@ -4259,7 +4259,7 @@ blockquote:before {
 	}
 	.dez-bnr-inr.dez-bnr-inr-sm,
 	.dez-bnr-inr {
-		height: 250px;  
+		height: 100px;  
 		
 		
 	}

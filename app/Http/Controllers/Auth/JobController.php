@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CategoryJobs;
 use App\Models\Province;
+use App\Models\Regency;
 use App\Models\JobPosting;
 use Auth;
 use Session;
@@ -66,16 +67,48 @@ class JobController extends Controller
 		$jobs = JobPosting::get();
 		$types = ["Silahkan Pilih", "Freelance", "Full Time", "Internship", "Part Time", "Temporary", "Internship", "Part Time", "Temporary", "Freelance", "Full Time"];
 
+		$provinces = Province::get();
+		
 		return view('user/list_job_all')
 		->with('type', $types)
-		->with('jobs', $jobs);
+		->with('jobs', $jobs)		
+		->with('provinces', $provinces);
 	}
 
 	public function detail_job($id)
 	{
 		$job = JobPosting::find($id);
-
 		return view('user/detail_job')
 		->with('job', $job);
+	}
+
+	public function list_job_ajax(Request $request)
+	{
+		$job = JobPosting::select('*');
+		$types = ["Silahkan Pilih", "Freelance", "Full Time", "Internship", "Part Time", "Temporary", "Internship", "Part Time", "Temporary", "Freelance", "Full Time"];
+		if(isset($_GET['province']) AND $_GET['province'] !== "all")
+		{
+			$province = Province::where('name', $_GET['province'])->first();
+			if($province)
+				$job->where('provincy_id', $province->id);
+			else
+				$job->where('provincy_id', 0);
+		}
+
+		if(isset($_GET['regency']) AND $_GET['regency'] !== "all")
+		{
+			$regency = Regency::where('name', $_GET['regency'])->first();
+			if($regency)
+				$job->where('regency_id', $regency->id);
+			else
+				$job->where('regency_id', 0);
+		}
+
+    	$job_content = view('user/list_job_ajax')
+						->with('type', $types)
+						->with('jobs', $job->get())
+						->render();
+                	
+    	return response()->json(['job_content' => $job_content]);
 	}
 }

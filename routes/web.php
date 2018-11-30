@@ -40,6 +40,7 @@ Route::get('job/create', 'Auth\JobController@create')->name('job-create')->middl
 Route::post('job/create', 'Auth\JobController@store')->name('job-store')->middleware('auth');
 
 Route::get('job/all', 'Auth\JobController@list_job_all')->name('list-job-all');
+Route::get('job/list/ajax', 'Auth\JobController@list_job_ajax')->name('list-job-all-ajax');
 Route::get('job/detail/{id}', 'Auth\JobController@detail_job')->name('detail-job');
 
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');

@@ -61,23 +61,25 @@ class LoginController extends Controller
          'email' => $request->email ,
          'password' => $request->password
       );
-       
-      if (! Auth::attempt($userdata))
-      {
-         Session::flash('message', 'Wrong email or password');
-         return redirect('login');
-      }
 
-      return redirect('home');
+      $userdata2 = array(
+         'phone' => $request->email ,
+         'password' => $request->password
+      );
+       
+      if (Auth::attempt($userdata))
+         return redirect('home');
+
+      if (Auth::attempt($userdata2))
+         return redirect('home');      
+
+      Session::flash('message', 'Wrong email or No telepon or password');
+      return redirect('login');
+      
    }
 
    public function redirectToProvider($provider, Request $request)
-    {
-         // $url = url('/');
-         // $urlFull = url()->full();
-         // //$temp = str_replace($url, replace, subject)
-         // dd(Request::url());
-
+   {
         try {
             $forAuth = $request->input('authFor') ? $request->input('authFor') : null;
             if(isset($forAuth))        

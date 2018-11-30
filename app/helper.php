@@ -22,11 +22,11 @@ function k99_relative_time($date) {
 
 
 
-    $delta = (time() -  $post_date) / (60 * 60 * 24);
+    $delta = ceil((time() -  $post_date) / (60 * 60 * 24));
     
     if($delta < 31)
     	return $delta.' day ago'; 
 
-    $delta = floor($delta / 31);
+    $delta = ceil(floor($delta / 31));
     	return $delta.' month ago'; 
 }

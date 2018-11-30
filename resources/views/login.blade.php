@@ -71,8 +71,8 @@
                          </div>
                      @endif
                      <div class="form-group">
-                        <label class="font-weight-700">E-MAIL *</label>
-                        <input name="email" required="" class="form-control" placeholder="Your Email Id" type="email">
+                        <label class="font-weight-700">E-MAIL Atau No telepon</label>
+                        <input name="email" required="" class="form-control" >
                      </div>
                      <div class="form-group">
                         <label class="font-weight-700">PASSWORD *</label>

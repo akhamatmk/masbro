@@ -29,47 +29,82 @@
 					<div class="row">
 						<div class="col-xl-9 col-lg-8">
 							<h5 class="widget-title font-weight-700 text-uppercase">Recent Jobs</h5>
+							
+							<div class="row" style="margin-bottom: 10px">
+								<div class="col-md-12">
+									Cari berdasarkan Tempat
+								</div>
+
+								<div class="col-md-5" style="margin-top: 10px">
+									<select name="province" id="province">
+										<option value="all">-All-</option>
+										@foreach($provinces as $province)
+										<option data-id="{{ $province->id }}" value="{{ $province->name }}">{{ $province->name }}</option>
+										@endForeach
+									</select>
+								</div>
+
+								<div class="col-md-5" style="margin-top: 10px">
+									<select name="regency" id="regency">
+										<option value="all">-All-</option>
+									</select>
+								</div>
+
+								<div class="col-md-2" style="margin-top: 10px">
+									<button class="btn btn-primary" id="search">Search</button>
+								</div>
+
+							</div>
+
 							<ul class="post-job-bx">
-								@foreach($jobs as $job)
-								<li>
-									<a href="{{ url('job/detail/'.$job->id) }}">
-										<div class="d-flex m-b30">
-											<div class="job-post-company">
-												<span><img src="{{ asset('images/profile-picture-user/'.$job->user->profile_image) }}"></span>
+								@if(count($jobs) > 0)
+									@foreach($jobs as $job)
+									<li>
+										<a href="{{ url('job/detail/'.$job->id) }}">
+											<div class="d-flex m-b30">
+												<div class="job-post-company">
+													<span><img src="{{ asset('images/profile-picture-user/'.$job->user->profile_image) }}"></span>
+												</div>
+												<div class="job-post-info">
+													<h4>{{ $job->title }}</h4>
+													<ul>
+														<li><i class="fa fa-map-marker"></i> {{ $job->regency->name ? $job->regency->name : "" }}, {{ $job->provincy->name ? $job->provincy->name : "" }}</li>
+														<li><i class="fa fa-bookmark-o"></i> 
+															{{ $type[$job->type_jobs] ? $type[$job->type_jobs] : "" }}
+														</li>
+														<li><i class="fa fa-clock-o"></i> Published {{ k99_relative_time($job->created_at) }}</li>
+													</ul>
+												</div>
 											</div>
-											<div class="job-post-info">
-												<h4>{{ $job->title }}</h4>
-												<ul>
-													<li><i class="fa fa-map-marker"></i> {{ $job->regency->name ? $job->regency->name : "" }}, {{ $job->provincy->name ? $job->provincy->name : "" }}</li>
-													<li><i class="fa fa-bookmark-o"></i> 
-														{{ $type[$job->type_jobs] ? $type[$job->type_jobs] : "" }}
-													</li>
-													<li><i class="fa fa-clock-o"></i> Published {{ k99_relative_time($job->created_at) }}</li>
-												</ul>
+											<div class="d-flex">
+												<div class="job-time mr-auto">
+													<span>Full Time</span>
+												</div>
+												<div class="salary-bx">
+													<span>{{ $job->sallary }}</span>
+												</div>
 											</div>
-										</div>
-										<div class="d-flex">
-											<div class="job-time mr-auto">
-												<span>Full Time</span>
-											</div>
-											<div class="salary-bx">
-												<span>{{ $job->sallary }}</span>
-											</div>
-										</div>
-										<span class="post-like fa fa-heart-o"></span>
-									</a>
-								</li>
-								@endForeach
-								
-							<!-- <div class="pagination-bx m-t30">
-								<ul class="pagination">
-									<li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
-									<li class="active"><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
-								</ul>
-							</div> -->
+											<span class="post-like fa fa-heart-o"></span>
+										</a>
+									</li>
+									@endForeach
+									
+								<!-- <div class="pagination-bx m-t30">
+									<ul class="pagination">
+										<li class="previous"><a href="#"><i class="ti-arrow-left"></i> Prev</a></li>
+										<li class="active"><a href="#">1</a></li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li class="next"><a href="#">Next <i class="ti-arrow-right"></i></a></li>
+									</ul>
+								</div> -->
+							@else
+							<li>
+								<div class="d-flex m-b30" style="justify-content: center;">
+									<h2>Data tidak ada</h2>
+								</div>
+							</li>
+							@endIf
 						</div>
 					</div>
 				</div>
@@ -84,7 +119,39 @@
 @section('js')
 <script type="text/javascript">
 	$(function() {
+		$("#province").change(function(){
+			$.ajax({
+				type: "GET",
+				url: '{{ URL::to("place/regencyAjax") }}/'+$(this).find(':selected').data('id'),
+				dataType: 'json',
+				success: function(data){
+					$("#regency").html("<option value='all'> ALL </option>");
+					$.each( data.data, function( key, value ) {
+						var type = "Kota";
+						if(value.type == 1)
+							var type = "Kabupaten";
 
+						$("#regency").append("<option value='"+value.name+"'>"+type+" "+value.name+"</option>");
+					});
+					$('#regency').selectpicker('refresh');
+				}
+			});
+		});
+
+		$("#search").click(function(){
+			$.ajax({
+				type: "GET",
+				url: '{{ URL::to("job/list/ajax") }}',
+				data :{
+					province : $("#province").find(':selected').val(),
+					regency : $("#regency").find(':selected').val()
+				},
+				dataType: 'json',
+				success: function(data){
+					$(".post-job-bx").html(data.job_content);
+				}
+			});
+		});
 	});
     	
 </script>

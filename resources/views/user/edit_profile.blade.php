@@ -167,11 +167,7 @@
           map = new google.maps.Map(document.getElementById('mapGoogle'), {
             zoom: 17,
             center: {lat: latitude, lng: longitude}
-          });
-
-          	var restrictOptions = {
-    			componentRestrictions: {country: 'ID'}
-			};
+          });          	
 
           marker = new google.maps.Marker({
             map: map,
@@ -184,7 +180,11 @@
   
             // Create the search box and link it to the UI element.
           var input = document.getElementById('pac-input');
-          var searchBox = new google.maps.places.Autocomplete(input, restrictOptions);
+          var searchBox = new google.maps.places.Autocomplete(input);
+
+          searchBox.setComponentRestrictions(
+            {'country': ['id']});
+
           map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
             
         // Bias the SearchBox results towards current map's viewport.
@@ -192,30 +192,29 @@
             searchBox.setBounds(map.getBounds());
           });
 
+          searchBox.addListener('place_changed', function() {
 
-          searchBox.addListener('places_changed', function() {
-            var places = searchBox.getPlaces();
+          marker.setVisible(false);
+          var place = searchBox.getPlace();
+          if (!place.geometry) {
+            // User entered the name of a Place that was not suggested and
+            // pressed the Enter key, or the Place Details request failed.
+            window.alert("No details available for input: '" + place.name + "'");
+            return;
+          }
 
-            if (places.length == 0)
-              return;
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);  // Why 17? Because it looks good.
+          }
+          marker.setPosition(place.geometry.location);
+          marker.setVisible(true);
+          placeMarker(map.center);
+        });
 
-            var bounds = new google.maps.LatLngBounds();
-            places.forEach(function(place) {
-              
-              if (!place.geometry)
-                return;
-
-              if (place.geometry.viewport)
-                bounds.union(place.geometry.viewport);
-              else
-                bounds.extend(place.geometry.location);
-
-            });
-
-              map.fitBounds(bounds);
-              placeMarker(map.center);
-
-          });
 
             google.maps.event.addListener(map, 'click', function(event) {
               placeMarker(event.latLng);

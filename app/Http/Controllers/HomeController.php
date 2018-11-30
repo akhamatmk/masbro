@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\JobPosting;
 use App\Models\CategoryJobs;
+use App\Models\Province;
 use Session;
 
 class HomeController extends Controller
@@ -26,10 +27,12 @@ class HomeController extends Controller
 
 		$jobs = JobPosting::get();
 		$category = CategoryJobs::get();
+		$province = Province::get();
 
 		return view('welcome')
 		->with('jobs', $jobs)
 		->with('categorys', $category)
+		->with('provinces', $province)
 		->with('type', $types);
 	}
 }

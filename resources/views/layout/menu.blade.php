@@ -38,8 +38,6 @@
                     <div class="header-nav navbar-collapse collapse justify-content-start" id="navbarNavDropdown">
                         <!-- main nav -->                    
                         <ul class="nav navbar-nav">
-                           @if (Auth::check())
-                            
                             <li>
                                 <a href="#">For Candidates <i class="fa fa-chevron-down"></i></a>
                                 <ul class="sub-menu">
@@ -48,6 +46,8 @@
                                     <!-- <li><a href="job-detail.html" class="dez-page">Job Detail</a></li> -->
                                 </ul>
                             </li>
+                           @if (Auth::check())
+                                                        
                             <li>
                                 <a href="#">For Employers <i class="fa fa-chevron-down"></i></a>
                                 <ul class="sub-menu">

@@ -64,14 +64,38 @@ class JobController extends Controller
 
 	public function list_job_all()
 	{
-		$jobs = JobPosting::get();
+		$job = JobPosting::select("*");
 		$types = ["Silahkan Pilih", "Freelance", "Full Time", "Internship", "Part Time", "Temporary", "Internship", "Part Time", "Temporary", "Freelance", "Full Time"];
 
 		$provinces = Province::get();
+
+		if(isset($_GET['province']) AND $_GET['province'] !== "all")
+		{
+			$province = Province::where('name', str_replace("+", " ", $_GET['province']))->first();
+			if($province)
+				$job->where('provincy_id', $province->id);
+			else
+				$job->where('provincy_id', 0);
+		}
+
+		if(isset($_GET['category']) AND $_GET['category'] !== "all")
+		{
+			$category = CategoryJobs::where('name', str_replace("+", " ", $_GET['category']))->first();
+			if($category)
+				$job->where('category_job_id', $category->id);
+			else
+				$job->where('category_job_id', 0);
+		}
+
+		if(isset($_GET['keyword']) AND $_GET['keyword'] !== "all" AND strlen($_GET['keyword']) > 0)
+		{
+			$job->where('title', 'like', '%' . $_GET['keyword'] . '%');
+		}
+
 		
 		return view('user/list_job_all')
 		->with('type', $types)
-		->with('jobs', $jobs)		
+		->with('jobs', $job->get())
 		->with('provinces', $provinces);
 	}
 

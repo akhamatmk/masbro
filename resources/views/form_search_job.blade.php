@@ -5,13 +5,13 @@
             <div class="find-job-bx">
                 <p class="site-button button-sm">Find Jobs, Employment & Career Opportunities</p>
                 <h2>Search Between More Them <br/> <span class="text-primary">50,000</span> Open Jobs.</h2>
-                <form class="dezPlaceAni">
+                <form class="dezPlaceAni" action="{{ URL('job/all') }}" method="GET">
                     <div class="row">
                         <div class="col-lg-4 col-md-6">
                             <div class="form-group">
                                 <label>Job Title, Keywords, or Phrase</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="">
+                                    <input type="text" class="form-control" name="keyword" placeholder="">
                                     <div class="input-group-append">
                                       <span class="input-group-text"><i class="fa fa-search"></i></span>
                                     </div>
@@ -20,12 +20,12 @@
                         </div>
                         <div class="col-lg-3 col-md-6">
                             <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="">
-                                    <div class="input-group-append">
-                                      <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
-                                    </div>
-                                </div>
+                                <select name="province">
+                                    <option value="all">Semua daerah</option>
+                                    @foreach($provinces as $province)
+                                       <option value="{{ $province->name }}">{{ $province->name }}</option>
+                                    @endForeach
+                                </select>
                             </div>
                         </div>
                         <div class="col-lg-3 col-md-6">
@@ -33,7 +33,7 @@
                                 <select name="category">
                                     <option value="all">Semua Category Pekerjaan</option>
                                     @foreach($categorys as $category)
-                                       <option value="{{ str_replace(' ','_', $category->name) }}">{{ $category->name }}</option>
+                                       <option value="{{$category->name}}">{{ $category->name }}</option>
                                     @endForeach
                                 </select>
                             </div>

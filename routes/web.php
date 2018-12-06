@@ -11,6 +11,14 @@
 |
 */
 
+Route::get('backend/admin/login', 'Backend\LoginController@index')->name('login-backend');
+
+Route::prefix('backend/admin')->middleware(['admin'])->group(function () {
+    Route::get('/', 'Backend\HomeController@index');
+});
+
+
+
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('home', 'HomeController@index')->name('home');

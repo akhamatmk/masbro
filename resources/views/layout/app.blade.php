@@ -39,10 +39,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/datetimepicker.css')}}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/dropify.css')}}">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <!-- Revolution Navigation Style -->
 </head>
 <body id="bg">
-<div id="loading-area"></div>
+
 <div class="page-wraper">
     @include('layout.menu')
 

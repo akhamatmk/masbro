@@ -57,6 +57,8 @@
 									</select>
 								</div>
 								<button type="submit" class="site-button" style="margin-bottom: 10px;">Submit</button>
+								<a href="{{ url('profile/user') }}"><button type="button" class="site-button" style="margin-bottom: 10px;">Back to Profile</button>
+								</a>
 							</form>
 						</div>
 					</div>

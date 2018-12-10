@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\JobPosting;
 use App\Models\CategoryJobs;
 use App\Models\Province;
+use App\Models\Regency;
 use Session;
 
 class HomeController extends Controller
@@ -28,11 +29,13 @@ class HomeController extends Controller
 		$jobs = JobPosting::get();
 		$category = CategoryJobs::get();
 		$province = Province::get();
+		$regencys = Regency::where('province_id', 31)->get();
 
 		return view('welcome')
 		->with('jobs', $jobs)
 		->with('categorys', $category)
 		->with('provinces', $province)
+		->with('regencys', $regencys)
 		->with('type', $types);
 	}
 }

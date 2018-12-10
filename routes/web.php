@@ -53,3 +53,9 @@ Route::get('job/detail/{id}', 'Auth\JobController@detail_job')->name('detail-job
 
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
+Route::get('experience/create', 'Auth\ExperienceController@create')->name('experience-create')->middleware('auth');
+Route::post('experience/create', 'Auth\ExperienceController@store')->name('experience-save')->middleware('auth');
+
+
+Route::post('upload/document', 'Auth\ExperienceController@upload_document')->name('experience-upload-document')->middleware('auth');

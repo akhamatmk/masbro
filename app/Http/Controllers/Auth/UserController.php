@@ -9,7 +9,9 @@ use App\Models\Province;
 use App\Models\Regency;
 use App\Models\District;
 use App\Models\EducationUser;
+use App\Models\Experience;
 use Illuminate\Support\Facades\File;
+use App\Models\UserDocument;
 use Session;
 use Illuminate\Support\Facades\Hash;
 
@@ -30,9 +32,15 @@ class UserController extends Controller
 	{
 		$user = Auth::user();
 		$education = EducationUser::where('user_id', $user->id)->get();
+		$experiences = Experience::where('user_id', $user->id)->get();
+		$userDocuments = UserDocument::where('user_id', $user->id)->get();
+		$month = ['', 'January', 'February', 'Maret', 'April', 'Mei', 'Juni', 'July', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
 		return view('user/profile')
 		->with('user', $user )
-		->with('educations', $education );
+		->with('educations', $education )
+		->with('userDocuments', $userDocuments )
+		->with('month', $month )
+		->with('experiences', $experiences );
 	}
 
 	public function profile_edit()

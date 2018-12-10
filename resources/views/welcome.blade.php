@@ -3,7 +3,7 @@
 @section('title', 'Profile')
 
 @section('content')
-
+<div id="loading-area"></div>
 <!-- Content -->
     <div class="page-content">
         @include('form_search_job')
@@ -28,89 +28,22 @@
                         <h6 class="fw3">Freelancers</h6>
                     </div>
                 </div>
+
+
                 <div class="row sp20">
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper">
-                            <div class="icon-content">
-                                <div class="icon-md text-primary m-b20"><i class="ti-location-pin"></i></div>
-                                <a href="#" class="dez-tilte">Design, Art & Multimedia</a>
-                                <p class="m-a0">198 Open Positions</p>
-                                <div class="rotate-icon"><i class="ti-location-pin"></i></div> 
-                            </div>
-                        </div>              
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper">
-                            <div class="icon-content">
-                                <div class="icon-md text-primary m-b20"><i class="ti-wand"></i></div>
-                                <a href="#" class="dez-tilte">Education Training</a>
-                                <p class="m-a0">198 Open Positions</p>
-                                <div class="rotate-icon"><i class="ti-wand"></i></div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper">
-                            <div class="icon-content">
-                                <div class="icon-md text-primary m-b20"><i class="ti-wallet"></i></div>
-                                <a href="#" class="dez-tilte">Accounting / Finance</a>
-                                <p class="m-a0">198 Open Positions</p>
-                                <div class="rotate-icon"><i class="ti-wallet"></i></div> 
-                            </div>
-                        </div>
-                    </div>
+                    @foreach($categorys as $category)
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="icon-bx-wraper">
                             <div class="icon-content">
                                 <div class="icon-md text-primary m-b20"><i class="ti-cloud-up"></i></div>
-                                <a href="#" class="dez-tilte">Human Resource</a>
-                                <p class="m-a0">198 Open Positions</p>
-                                <div class="rotate-icon"><i class="ti-cloud-up"></i></div> 
+                                <a href="{{ url('job/all')."?category=".$category->name }}" class="dez-tilte">{{ $category->name }}</a>
+                                <div class="rotate-icon"><i class="ti-location-pin"></i></div> 
                             </div>
-                        </div>
+                        </div>              
                     </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper">
-                            <div class="icon-content">
-                                <div class="icon-md text-primary m-b20"><i class="ti-bar-chart"></i></div>
-                                <a href="#" class="dez-tilte">Telecommunications</a>
-                                <p class="m-a0">198 Open Positions</p>
-                                <div class="rotate-icon"><i class="ti-bar-chart"></i></div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper">
-                            <div class="icon-content">
-                                <div class="icon-md text-primary m-b20"><i class="ti-tablet"></i></div>
-                                <a href="#" class="dez-tilte">Restaurant / Food Service</a>
-                                <p class="m-a0">198 Open Positions</p>
-                                <div class="rotate-icon"><i class="ti-tablet"></i></div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper">
-                            <div class="icon-content">
-                                <div class="icon-md text-primary m-b20"><i class="ti-camera"></i></div>
-                                <a href="#" class="dez-tilte">Construction / Facilities</a>
-                                <p class="m-a0">198 Open Positions</p>
-                                <div class="rotate-icon"><i class="ti-camera"></i></div> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="icon-bx-wraper">
-                            <div class="icon-content">
-                                <div class="icon-md text-primary m-b20"><i class="ti-panel"></i></div>
-                                <a href="#" class="dez-tilte">Health</a>
-                                <p class="m-a0">198 Open Positions</p>
-                                <div class="rotate-icon"><i class="ti-panel"></i></div> 
-                            </div>
-                        </div>
-                    </div>
+                    @endForeach
                     <div class="col-lg-12 text-center m-t30">
-                        <button class="site-button radius-xl">All Categories</button>
+                        <a href="{{ url('job/all') }}"><button class="site-button radius-xl">All Categories</button></a>
                     </div>
                 </div>
             </div>
@@ -122,74 +55,18 @@
                 <div class="row">
                     <div class="col-lg-12 section-head text-center">
                         <h2 class="m-b5">Featured Cities</h2>
-                        <h6 class="fw4 m-b0">20+ Featured Cities Added Jobs</h5>
                     </div>
                 </div>
                 <div class="row">
+                    @foreach($regencys as $regency)
                     <div class="col-lg-3 col-sm-6 col-md-6 m-b30">
                         <div class="city-bx align-items-end  d-flex" style="background-image:url({{ asset('images/city/pic1.jpg')}} )">
                             <div class="city-info">
-                                <h5>Iraq</h5>
-                                <span>765 Jobs</span>
+                                <h5>{{ $regency->name }}</h5>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6 col-md-6 m-b30">
-                        <div class="city-bx align-items-end  d-flex" style="background-image:url({{ asset('images/city/pic2.jpg')}})">
-                            <div class="city-info">
-                                <h5>Argentina</h5>
-                                <span>352 Jobs</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-md-6 m-b30">
-                        <div class="city-bx align-items-end  d-flex" style="background-image:url({{ asset('images/city/pic3.jpg')}})">
-                            <div class="city-info">
-                                <h5>Indonesia</h5>
-                                <span>893 Jobs</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-md-6 m-b30">
-                        <div class="city-bx align-items-end  d-flex" style="background-image:url({{ asset('images/city/pic4.jpg')}})">
-                            <div class="city-info">
-                                <h5>Gambia</h5>
-                                <span>502 Jobs</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-md-6 m-b30">
-                        <div class="city-bx align-items-end  d-flex" style="background-image:url({{ asset('images/city/pic5.jpg')}})">
-                            <div class="city-info">
-                                <h5>India</h5>
-                                <span>765 Jobs</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-md-6 m-b30">
-                        <div class="city-bx align-items-end  d-flex" style="background-image:url({{ asset('images/city/pic6.jpg')}})">
-                            <div class="city-info">
-                                <h5>Thailand</h5>
-                                <span>352 Jobs</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-md-6 m-b30">
-                        <div class="city-bx align-items-end  d-flex" style="background-image:url({{ asset('images/city/pic7.jpg')}})">
-                            <div class="city-info">
-                                <h5>Banjul</h5>
-                                <span>893 Jobs</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-md-6 m-b30">
-                        <div class="city-bx align-items-end  d-flex" style="background-image:url({{ asset('images/city/pic8.jpg')}})">
-                            <div class="city-info">
-                                <h5>Spain</h5>
-                                <span>502 Jobs</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endForeach                    
                 </div>
             </div>
         </div>

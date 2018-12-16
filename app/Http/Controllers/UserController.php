@@ -43,11 +43,11 @@ class UserController extends Controller
 		{
 			$getData = RelationConnect::where(function($q) use($user, $u){
 				$q->where('user_first', $user->id)
-				->orWhere('user_second', $u->id);
+				->Where('user_second', $u->id);
 			})
 			->Orwhere(function($q) use($user, $u){
 				$q->where('user_first', $u->id)
-				->orWhere('user_second', $user->id);
+				->Where('user_second', $user->id);
 			})
 	      	->first();
 

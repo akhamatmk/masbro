@@ -74,18 +74,22 @@
                <img src="{{ asset('images/profile-picture-user/'.$user->profile_image) }}" class="rounded-circle img-thumbnail text-centre">
                <a id="self-profile-settings-gear" style="cursor: pointer;" class="icon settings-icon" href="{{ url('profile/user/edit') }}">
                   <li-icon type="gear-icon" aria-hidden="true">
-                     <svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon icon">
-                        <g class="large-icon" style="fill: currentColor" id="gear-icon-large">
-                           <path d="M12,9a3,3,0,1,0,3,3A3,3,0,0,0,12,9Zm0,5.13A2.13,2.13,0,1,1,14.12,12,2.12,2.12,0,0,1,12,14.13Zm7.91-2.87L22,9.38,19.26,4.62,16.6,5.5a1,1,0,0,1-1.29-.75L14.74,2H9.26L8.69,4.75A1,1,0,0,1,7.4,5.5L4.74,4.62,2,9.38l2.09,1.87a1,1,0,0,1,0,1.49L2,14.62l2.74,4.76L7.4,18.5a1,1,0,0,1,1.29.75L9.26,22h5.48l0.57-2.75a1,1,0,0,1,1.29-.75l2.66,0.88L22,14.62l-2.09-1.87A1,1,0,0,1,19.91,11.25ZM18.4,17.12l-1.22-.4a2.86,2.86,0,0,0-3.7,2.14l-0.26,1.26H10.78l-0.26-1.26a2.86,2.86,0,0,0-3.7-2.14l-1.22.4L4.38,15l1-.86a2.88,2.88,0,0,0,0-4.29L4.38,9,5.6,6.88l1.22,0.4a2.86,2.86,0,0,0,3.7-2.14l0.26-1.26h2.44l0.26,1.26a2.86,2.86,0,0,0,3.7,2.14l1.22-.4L19.62,9l-1,.86a2.88,2.88,0,0,0,0,4.29l1,0.86Z"></path>
-                        </g>
-                     </svg>
                   </li-icon>
                </a>
                <h5>{{ $user->name }}</h5>
                <p>{{ $user->profession }}</p>
-               <p><i class="fa fa-map-marker" aria-hidden="true"></i>{{ isset($user->regency->name) ? " ".$user->regency->name." , " : " " }}  {{ isset($user->province->name) ? $user->province->name." , " : "" }} Indonesia.</p>            
-               <a href="{{ url('profile/user/edit') }}" class="btn btn-info btn-sm">Edit Profile</a>
-               <a href="#" class="btn btn-success btn-sm upload">Upload Document</a>
+               <p><i class="fa fa-map-marker" aria-hidden="true"></i>{{ isset($user->regency->name) ? " ".$user->regency->name." , " : " " }}  {{ isset($user->province->name) ? $user->province->name." , " : "" }} Indonesia.</p>
+
+               @if(isset($userLogin))
+                  @if($connect == 0)
+                     <a href="#" id="connect" data-id="{{ $user->id }}" class="btn btn-success btn-sm">Connect</a>
+                  @endIf
+                  @if($follow == 0)
+                     <a href="#" id="follow" data-id="{{ $user->id }}" class="btn btn-info btn-sm">Follow</a>
+                  @elseif($follow == 1)
+                     <a href="#" id="follow" data-id="{{ $user->id }}" class="btn btn-danger btn-sm">unFollow</a>
+                  @endIf
+               @endIf
             </div>
          </div>
       </div>
@@ -93,11 +97,7 @@
    <div class="row" style="margin-top: 10px">
       <div class="col-sm-8 col-12 main-section">
          <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">           
-            <div style="width: 70%; float: left;"><h3 class="col-md-10" style="    margin: -10px;"> Education </h3></div>
-
-            <div style="width: 20%; float: right;">
-               <a href="{{ url('education/create') }}" id="ember155">      <span class="svg-icon-wrap"><li-icon aria-hidden="true" type="plus-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M21,13H13v8H11V13H3V11h8V3h2v8h8v2Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span></a>
-            </div>  
+            <div style="width: 70%; float: left;"><h3 class="col-md-10" style="    margin: -10px;"> Education </h3></div> 
          </div>
          <div class="clearfix visible-xs"></div><br/>
         
@@ -122,10 +122,6 @@
       <div class="col-sm-8 col-12 main-section">
          <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">           
             <div style="width: 70%; float: left;"><h3 class="col-md-10" style="    margin: -10px;"> Experience </h3></div>
-
-            <div style="width: 20%; float: right;">
-               <a href="{{ url('experience/create') }}" id="ember155">      <span class="svg-icon-wrap"><li-icon aria-hidden="true" type="plus-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M21,13H13v8H11V13H3V11h8V3h2v8h8v2Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span></a>
-            </div>  
          </div>
          <div class="clearfix visible-xs"></div><br/>
 
@@ -162,10 +158,6 @@
       <div class="col-sm-8 col-12 main-section">
          <div class="row" style="padding: 24px 24px 0; margin-bottom: -10px">           
             <div style="width: 70%; float: left;"><h3 class="col-md-10" style="    margin: -10px;"> Document </h3></div>
-
-            <div style="width: 20%; float: right;">
-               <a class="upload" id="ember155">      <span class="svg-icon-wrap"><li-icon aria-hidden="true" type="plus-icon"><svg viewBox="0 0 24 24" width="24px" height="24px" x="0" y="0" preserveAspectRatio="xMinYMin meet" class="artdeco-icon" focusable="false"><path d="M21,13H13v8H11V13H3V11h8V3h2v8h8v2Z" class="large-icon" style="fill: currentColor"></path></svg></li-icon></span></a>
-            </div>  
          </div>
          <div class="clearfix visible-xs"></div><br/>
 
@@ -192,7 +184,6 @@
       </div>
    </div>
 </div>
-
 
 
 <!-- Modal -->
@@ -240,38 +231,67 @@
 <script type="text/javascript">
    $(function() {
 
-
-       $('.dropify').dropify();
-
-       $(".upload").click(function(){
-          $("#myModal").modal('show');
-       });
-
-       $("#submit_upload").click(function(){
-          let form = $('#uplad_form')[0];
-          let formData = new FormData(form);
-
-          $.ajax({
+      $("#follow").click(function(){
+        let id = $(this).data('id');
+        $.ajax({
             type: "POST",
-            url: '{{ URL::to("upload/document") }}',
+            url: '{{ URL::to("follow") }}',
             dataType: 'json',
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
+            data: {
+              user_target : id,
+              "_token": "{{ csrf_token() }}"
+            },
             success: function(data){
-              $("#myModal").modal('hide');
-              if(data.succes == 1)
+            if(data.error == 0)
+            {               
+                if(data.follow == 1){
+                  $("#follow").removeClass( "btn-info" );
+                  $("#follow").addClass( "btn-danger" );
+                  $("#follow").html("unFollow")
+                }else
+                {
+                  $("#follow").removeClass( "btn-danger" );
+                  $("#follow").addClass( "btn-info" );
+                  $("#follow").html("Follow")
+                }
+
+
+              }
+            }
+        });
+      });
+
+      $("#connect").click(function(){
+        let id = $(this).data('id');
+        $.ajax({
+            type: "POST",
+            url: '{{ URL::to("connect") }}',
+            dataType: 'json',
+            data: {
+              user_target : id,
+              "_token": "{{ csrf_token() }}"
+            },
+            success: function(data){
+              if(data.error == 0)
               {
-                swal({title: "Good job", text: "Your Document Succes Upload", type: 
-                  "success"}).then(function(){ 
-                     location.reload();
-                     }
-                  );
+                $("#connect").remove();
+
+                if(data.follow == 1){
+                  $("#follow").removeClass( "btn-info" );
+                  $("#follow").addClass( "btn-danger" );
+                  $("#follow").html("unFollow")
+                }else
+                {
+                  $("#follow").removeClass( "btn-danger" );
+                  $("#follow").addClass( "btn-info" );
+                  $("#follow").html("Follow")
+                }
+
+
               }
             }
           });
-       });
+      });
    });
 </script>
 @endsection

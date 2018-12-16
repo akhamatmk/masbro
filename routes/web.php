@@ -17,8 +17,6 @@ Route::prefix('backend/admin')->middleware(['admin'])->group(function () {
     Route::get('/', 'Backend\HomeController@index');
 });
 
-
-
 Route::get('/', 'HomeController@index')->name('home');
 
 Route::get('home', 'HomeController@index')->name('home');
@@ -57,5 +55,16 @@ Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallb
 Route::get('experience/create', 'Auth\ExperienceController@create')->name('experience-create')->middleware('auth');
 Route::post('experience/create', 'Auth\ExperienceController@store')->name('experience-save')->middleware('auth');
 
-
 Route::post('upload/document', 'Auth\ExperienceController@upload_document')->name('experience-upload-document')->middleware('auth');
+
+
+Route::get('search/people', 'SearchController@people');
+Route::get('user/profile/{id}', 'UserController@profile');
+
+Route::get('notification', 'NotificationController@list')->middleware('auth');
+
+Route::post('connect', 'RelationshipController@connect')->name('create-relation')->middleware('auth');
+Route::post('follow', 'RelationshipController@follow')->name('create-follow')->middleware('auth');
+
+Route::get('confirm/connect/{id}', 'RelationshipController@confirmConnect')->middleware('auth');
+Route::post('confirm/connect/{id}', 'RelationshipController@confirmConnectSubmit')->middleware('auth');

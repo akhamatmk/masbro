@@ -23,7 +23,7 @@ class EducationController extends Controller
 
 	public function create()
 	{
-		return view('user/create_education')->with('user', Auth::user());
+		return view('user/create_education')->with('menu', 'profile')->with('user', Auth::user());
 	}
 
 	public function store(Request $request)

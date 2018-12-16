@@ -40,6 +40,7 @@ class UserController extends Controller
 		->with('educations', $education )
 		->with('userDocuments', $userDocuments )
 		->with('month', $month )
+		->with('menu', 'profile')
 		->with('experiences', $experiences );
 	}
 
@@ -53,6 +54,7 @@ class UserController extends Controller
 			->with('user', $user)
 			->with('provinces', $province)
 			->with('regencys', $regency)
+			->with('menu', 'profile')
 			->with('districts', $district);
 	}
 

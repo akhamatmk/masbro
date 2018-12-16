@@ -36,6 +36,7 @@ class HomeController extends Controller
 		->with('categorys', $category)
 		->with('provinces', $province)
 		->with('regencys', $regencys)
+		->with('menu', 'home')
 		->with('type', $types);
 	}
 }

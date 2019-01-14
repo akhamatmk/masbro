@@ -19,6 +19,16 @@ Route::prefix('backend/admin')->middleware(['admin'])->group(function () {
 
 Route::get('/', 'HomeController@index')->name('home');
 
+Route::post('upload/image/gallery', 'UploadImageController@gallery')->middleware('auth');
+
+Route::get('search/school', 'Auth\EducationController@school');
+
+Route::get('profesion/title', 'Auth\UserController@title');
+
+Route::post('make/post', 'PostController@store')->middleware('auth');
+Route::post('forgot-password', 'Auth\LoginController@forgotPassword');
+Route::get('reset/password/{token}/{email}', 'Auth\LoginController@resetPassword');
+Route::post('reset/password', 'Auth\LoginController@setNewPassword');
 Route::get('home', 'HomeController@index')->name('home');
 
 Route::get('login', 'Auth\LoginController@index')->name('login');
@@ -42,6 +52,12 @@ Route::get('place/districtAjax/{regency_id}', 'PlaceController@districtAjax')->n
 Route::get('education/create', 'Auth\EducationController@create')->name('education-create')->middleware('auth');
 Route::post('education/create', 'Auth\EducationController@store')->name('education-save')->middleware('auth');
 
+Route::get('education/edit/{id}', 'Auth\EducationController@put')->name('education-create')->middleware('auth');
+Route::post('education/edit/{id}', 'Auth\EducationController@putStore')->name('education-create')->middleware('auth');
+
+Route::get('education/delete/{id}', 'Auth\EducationController@delete')->name('education-create')->middleware('auth');
+
+Route::get('category/job/child/{parent_id}', 'Auth\JobController@child_category');
 Route::get('job/create', 'Auth\JobController@create')->name('job-create')->middleware('auth');
 Route::post('job/create', 'Auth\JobController@store')->name('job-store')->middleware('auth');
 
@@ -55,8 +71,12 @@ Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallb
 Route::get('experience/create', 'Auth\ExperienceController@create')->name('experience-create')->middleware('auth');
 Route::post('experience/create', 'Auth\ExperienceController@store')->name('experience-save')->middleware('auth');
 
-Route::post('upload/document', 'Auth\ExperienceController@upload_document')->name('experience-upload-document')->middleware('auth');
+Route::get('experience/edit/{id}', 'Auth\ExperienceController@edit')->name('experience-edit')->middleware('auth');
+Route::post('experience/edit/{id}', 'Auth\ExperienceController@save_edit')->name('experience-save-edit')->middleware('auth');
 
+Route::get('experience/delete/{id}', 'Auth\ExperienceController@delete')->name('experience-create')->middleware('auth');
+
+Route::post('upload/document', 'Auth\ExperienceController@upload_document')->name('experience-upload-document')->middleware('auth');
 
 Route::get('search/people', 'SearchController@people');
 Route::get('user/profile/{id}', 'UserController@profile');

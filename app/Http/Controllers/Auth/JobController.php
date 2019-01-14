@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\CategoryJobs;
+use App\Models\CategoryParentJob;
 use App\Models\Province;
 use App\Models\Regency;
 use App\Models\JobPosting;
@@ -28,11 +29,17 @@ class JobController extends Controller
 	{
 		$types = ["Silahkan Pilih", "Freelance", "Full Time", "Internship", "Part Time", "Temporary", "Internship", "Part Time", "Temporary", "Freelance", "Full Time"];
 		$province = Province::get();
-		$categories = CategoryJobs::get();
+		$categoryParentJob = CategoryParentJob::get();
 		return view('user/create_job')
 		->with('provinces', $province)
-		->with('types', $types)
-		->with('categories', $categories);
+		->with('categoryParents', $categoryParentJob)
+		->with('types', $types);
+	}
+
+	public function child_category($parent_id)
+	{
+		$categoryJobs = CategoryJobs::where('category_parent_job_id', $parent_id)->get();
+		return $categoryJobs;
 	}
 
 	public function store(Request $request)

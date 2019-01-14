@@ -93,12 +93,13 @@
                       </div>
 
                   </form>
-                  <form id="forgot-password" class="tab-pane fade  col-12 p-a0">
+                  <form method="post" action="{{ url('forgot-password') }}" id="forgot-password" class="tab-pane fade  col-12 p-a0">
+                     @csrf
                      <h4 class="font-weight-700">FORGET PASSWORD ?</h4>
                      <p class="font-weight-600">We will send you an email to reset your password. </p>
                      <div class="form-group">
                         <label class="font-weight-700">E-MAIL *</label>
-                        <input name="dzName" required="" class="form-control" placeholder="Your Email Id" type="email">
+                        <input name="email" type="email" required="" class="form-control" placeholder="Your Email Id" >
                      </div>
                      <div class="text-left"> 
                         <a class="site-button outline gray button-lg" data-toggle="tab" href="#login">Back</a>

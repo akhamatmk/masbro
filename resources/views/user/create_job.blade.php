@@ -30,12 +30,15 @@
 								</div>
 
 								<div class="form-group">
-									<label for="category_job_id">Category Pekerjaan</label>
-									<select name="category_job_id" id="category_job_id">
-										<option value="0">Silahkan Pilih</option>
-										@foreach($categories as $categorie)
-											<option value="{{ $categorie->id }}">{{ $categorie->name }}</option>
+									<label for="category_panret_job_id">Category Pekerjaan</label>
+									<select name="category_panret_job_id" id="category_panret_job_id">
+										<option value="0">Silahkan Pilih Parent Category</option>
+										@foreach($categoryParents as $categoryParent)
+											<option value="{{ $categoryParent->id }}">{{ $categoryParent->name }}</option>
 										@endForeach
+									</select> <br><br>
+									
+									<select name="category_job_id" id="category_job_id">										
 									</select>
 								</div>
 
@@ -228,6 +231,25 @@
 	$(function() {
 		
 		$('#deadline_jobs').datepicker({ dateFormat: 'yy-mm-dd' });
+
+		$("#category_panret_job_id ").change(function(){
+			$.ajax({
+				type: "GET",
+				url: '{{ URL::to("category/job/child") }}/'+$(this).val(),
+				dataType: 'json',
+				success: function(data){
+					$("#category_job_id").html("");
+					$.each( data, function( key, value ) {
+							$('#category_job_id').append($('<option>', {
+        						value: value.id,
+        						text: value.name
+      						}));
+					});
+					
+					$('#category_job_id').selectpicker('refresh');
+				}
+			});
+		});
 
     	$("#province_id").change(function(){
 			$.ajax({

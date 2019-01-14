@@ -85,7 +85,7 @@
 	    <div class="checkbox">
 		  <label>		  	
 		    <input type="checkbox" class="show_hidden" data-id="0" name="show[]"> Munculkan di pencarian
-		    <input type="hidden" id="show_hidden_0" name="show_hidden[]"  value="@if($value->show == 1) on @else off @endIf">
+		    <input type="hidden" id="show_hidden_0" name="show_hidden[]"  value="off">
 		  </label>
 		</div>
 	</div>

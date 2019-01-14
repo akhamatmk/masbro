@@ -12,7 +12,7 @@
 					<!-- Breadcrumb row -->
 					<div class="breadcrumb-row">
 						<ul class="list-inline">
-							<li><a href="#">Home</a></li>
+							<li><a href="{{ url('home') }}">Home</a></li>
 							<li>Job Detail</li>
 						</ul>
 					</div>
@@ -54,7 +54,6 @@
 									<a href="#" class="text-secondry m-r30">{{ $job->title }}</a>
 								</h3>
 								<ul class="job-info">
-<!-- 									<li><strong>Education</strong> Web Designer</li> -->
 									<li><strong>Deadline:</strong> {{ date('d M Y', strtotime($job->deadline_jobs)) }}</li>
 									<li><i class="ti-location-pin text-black m-r5"></i> {{ $job->regency->name ? $job->regency->name : "" }}, {{ $job->provincy->name ? $job->provincy->name : "" }} </li>
 								</ul>								

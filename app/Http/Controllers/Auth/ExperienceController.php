@@ -58,6 +58,58 @@ class ExperienceController extends Controller
         return redirect('experience/create');
 	}
 
+	public function edit($id)
+	{
+		$experience = Experience::where('id', $id)->where('user_id', Auth::user()->id)->first();
+		if(! $experience)
+			return redirect('/');
+
+		$month = ['', 'January', 'February', 'Maret', 'April', 'Mei', 'Juni', 'July', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+		$province = Province::get();
+		return view('user/edit_experience')
+		->with('data', $experience)
+		->with('provinces', $province)
+		->with('months', $month)
+		->with('user', Auth::user());
+	}
+
+	public function save_edit($id, Request $request)
+	{
+		$experience = Experience::where('id', $id)->where('user_id', Auth::user()->id)->first();
+		if(! $experience)
+			return redirect('/');
+
+		$experience->user_id = Auth::user()->id;
+  		$experience->province_id = $request->province_id;
+  		$experience->regency_id = $request->regency_id;
+  		$experience->title = $request->title;
+  		$experience->company = $request->company;
+  		$experience->from_year = $request->from_year;
+  		$experience->from_month = $request->from_month;
+  		$experience->until_year = $request->until_year;
+  		$experience->until_month = $request->until_month;
+  		$experience->description = $request->description;
+  		if(! isset($currently))
+  			$experience->description = 0;
+
+	  	$experience->save();
+		
+		Session::flash('message-succes', 'Succes Update Data'); 
+        return redirect('experience/create');
+	}
+
+	public function delete($id)
+	{
+		$experience = Experience::where('id', $id)->where('user_id', Auth::user()->id)->first();
+		if(! $experience)
+			return redirect('/');
+
+		$experience->delete();
+
+		Session::flash('message-succes', 'Succes Delete'); 
+        return redirect('experience/create');
+	}
+
 	public function upload_document(Request $request)
 	{
 

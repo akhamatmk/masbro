@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Models\UserSocialApp;
+use App\Mail\ForgotPassword;
+use Illuminate\Support\Facades\Mail;
 use Auth;
 use Session;
 use Socialite;
@@ -165,7 +167,6 @@ class LoginController extends Controller
          if(! isset($temp[1]))
             return [];
 
-
          $temp2 = explode("&", $temp[1]);
          $result = [];
          foreach ($temp2 as $key => $value) {
@@ -179,4 +180,45 @@ class LoginController extends Controller
 
          return $result;
     }
+
+   public function forgotPassword(Request $request)
+   {
+      $user = User::where('email', $request->email)->first();
+      if($user)
+      {
+         $user->remember_token = md5(date('Ydmhis'));
+         $user->save();
+         Mail::to($request->email)->send(new ForgotPassword($user));
+      }
+      
+      Session::flash('message', 'Already send email for reset password');
+      return redirect('login');
+   }
+
+   public function resetPassword($token, $email)
+   {
+      $user = User::where('email', $email)->where('remember_token', $token)->first();
+      if(! $user)
+      {
+         return redirect('home');
+      }
+
+      return view('reset_password')
+            ->with('user', $user);
+   }
+
+   public function setNewPassword(Request $request)
+   {
+      $user = User::where('email', $request->email)->where('remember_token', $request->token)->first();
+      if(! $user)
+      {
+         return redirect('home');
+      }
+
+      $user->password = $request->password;
+      $user->remember_token = md5(date('Ydmhis'));
+      $user->save();
+      Session::flash('message', 'Password already set go login');
+      return redirect('login');
+   }
 }

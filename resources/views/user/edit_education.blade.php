@@ -60,24 +60,30 @@
                         <div class="form-group">
                             <label>Kampus / Sekolah</label>
                             <div class="autocomplete" >
-                                <input id="school" type="text" name="school" class="form-control" placeholder="Sekolah">
+                                <input id="school" type="text" name="school" class="form-control" value="{{ $data->school }}" placeholder="Sekolah">
                                 <div id="myInputautocomplete-list" class="autocomplete-items"></div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Degree</label>
-                            <input type="text" name="degree" class="form-control" placeholder="Your Degree">
+                            <input type="text" name="degree" class="form-control" value="{{ $data->degree }}" placeholder="Your Degree">
                         </div>
                         <div class="form-group">
                             <label>Field of study</label>
-                            <input type="text" name="field_of_study" class="form-control" placeholder="Your field of study">
+                            <input type="text" name="field_of_study" class="form-control" value="{{ $data->field_of_study }}" placeholder="Your field of study">
                         </div>
                         <div class="form-group">
                             <label>From Year</label>
                             <select name="from" id="from">
                                 <option value="0">Silahkan Pilih</option>
                                 @for($a = date('Y'); $a > 1960; $a --)
-                                <option value="{{ $a }}">{{ $a }}</option>
+                                    @php $select="" @endphp                                    
+                                    <?php
+                                        if($data->from == $a)
+                                            $select='selected="selected"';
+                                    ?>
+
+                                <option {{ $select }} value="{{ $a }}">{{ $a }} </option>
                                 @endFor
                             </select>
                         </div>
@@ -86,7 +92,13 @@
                             <select name="until" id="until">
                                 <option value="0">Silahkan Pilih</option>
                                 @for($a = date('Y'); $a > 1960; $a --)
-                                <option value="{{ $a }}">{{ $a }}</option>
+                                    @php $select="" @endphp                                    
+                                    <?php
+                                        if($data->until == $a)
+                                            $select='selected="selected"';
+                                    ?>
+
+                                <option {{ $select }} value="{{ $a }}">{{ $a }}</option>
                                 @endFor
                             </select>
                         </div>

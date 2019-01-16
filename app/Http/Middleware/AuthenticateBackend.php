@@ -1,11 +1,9 @@
 <?php
-
 namespace App\Http\Middleware;
 
-use Closure;
-use Auth;
+use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
-class AuthenticateBackend
+class AuthenticateBackend extends Middleware
 {
     /**
      * Get the path the user should be redirected to when they are not authenticated.
@@ -13,23 +11,11 @@ class AuthenticateBackend
      * @param  \Illuminate\Http\Request  $request
      * @return string
      */
-
-    public function handle($request, Closure $next)
+    protected function redirectTo($request)
     {
-        if (Auth::user() == null) {
-            Auth::logout();
-            return redirect('backend/admin/login');
+        if (! $request->expectsJson()) {
+            return route('login');
         }
-
-        if(Auth::user() != null)
-        {
-            if(Auth::user()->type == 0)
-            {
-                Auth::logout();
-                return redirect('backend/admin/login');
-            }
-        }
-
-        return $next($request);
     }
 }
+
